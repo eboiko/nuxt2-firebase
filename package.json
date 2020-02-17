@@ -1,0 +1,27 @@
+{
+  "name": "frame-nuxt2-firebase",
+  "version": "1.0.0",
+  "description": "Nuxt2/SSR on Firebase Cloud Functions and Firebase Hosting",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cd src && yarn dev",
+    "serve": "NODE_ENV=development firebase serve",
+    "deploy": "yarn build && firebase deploy",
+    "build": "yarn build:nuxt && yarn build:clean && yarn build:copyassets",
+    "build:nuxt": "cd src && yarn build",
+    "build:clean": "cd hosting && DEL /F/Q/S *.* > NUL",
+    "build:copyassets": "yarn build:copydist && yarn build:copystatic",
+    "build:copydist": "xcopy /i /y functions\\nuxt\\dist\\client hosting\\assets",
+    "build:copystatic": "xcopy /i /y src\\static hosting && xcopy /i /y src\\assets hosting\\assets",
+    "setup": "yarn install && yarn setup:hosting && yarn setup:functions",
+    "setup:hosting": "cd src && yarn install",
+    "setup:functions": "cd functions && yarn install"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.0"
+  },
+  "private": true,
+  "dependencies": {
+    "js-cookie": "^2.2.1"
+  }
+}
